@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+   Sphinx-4 Configuration file
+-->
+
+<!-- ******************************************************** -->
+<!--  an4 configuration file                             -->
+<!-- ******************************************************** -->
+
+<config>
+
+    <!-- ******************************************************** -->
+    <!-- frequently tuned properties                              -->
+    <!-- ******************************************************** -->
+
+    <property name="logLevel" value="WARNING"/>
+    <property name="showCreations" value="false"/>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 1 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd1" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput1</item>
+            <item>speechClassifier1</item>
+            <item>speechMarker1</item>
+            <item>nonSpeechDataFilter1</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput1"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier1"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker1"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter1"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 2 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd2" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput2</item>
+            <item>speechClassifier2</item>
+            <item>speechMarker2</item>
+            <item>nonSpeechDataFilter2</item>
+        
+        </propertylist>
+    </component>
+
+    <component name="primaryInput2"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier2"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker2"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter2"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 3 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd3" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput3</item>
+            <item>speechClassifier3</item>
+            <item>speechMarker3</item>
+            <item>nonSpeechDataFilter3</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput3"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier3"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker3"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter3"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 4 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd4" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput4</item>
+            <item>speechClassifier4</item>
+            <item>speechMarker4</item>
+            <item>nonSpeechDataFilter4</item>
+        
+        </propertylist>
+    </component>
+
+    <component name="primaryInput4"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier4"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker4"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter4"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 5 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd5" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput5</item>
+            <item>speechClassifier5</item>
+            <item>speechMarker5</item>
+            <item>nonSpeechDataFilter5</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput5"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier5"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker5"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter5"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 6 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd6" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput6</item>
+            <item>speechClassifier6</item>
+            <item>speechMarker6</item>
+            <item>nonSpeechDataFilter6</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput6"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier6"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker6"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter6"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 7 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd7" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput7</item>
+            <item>speechClassifier7</item>
+            <item>speechMarker7</item>
+            <item>nonSpeechDataFilter7</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput7"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier7"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker7"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter7"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 8 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd8" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput8</item>
+            <item>speechClassifier8</item>
+            <item>speechMarker8</item>
+            <item>nonSpeechDataFilter8</item>
+        
+        </propertylist>
+    </component>
+
+    <component name="primaryInput8"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier8"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker8"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter8"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 9 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd9" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput9</item>
+            <item>speechClassifier9</item>
+            <item>speechMarker9</item>
+            <item>nonSpeechDataFilter9</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput9"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier9"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker9"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter9"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+
+    <!-- ******************************************************** -->
+    <!-- The live frontend 10 configuration                          -->
+    <!-- ******************************************************** -->
+    <component name="frontEnd10" type="edu.cmu.sphinx.frontend.FrontEnd">
+        <propertylist name="pipeline">
+        
+            <item>primaryInput10</item>
+            <item>speechClassifier10</item>
+            <item>speechMarker10</item>
+            <item>nonSpeechDataFilter10</item>
+        
+        </propertylist>
+    </component>
+
+
+    <component name="primaryInput10"
+               type="org.speechforge.cairo.rtp.server.sphinx.RawAudioProcessor"/>
+
+    <component name="speechClassifier10"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechClassifier">
+        <property name="useSnrThreshold" value="false"/>
+        <property name="threshold" value="${speechClassifierThreshold}"/>
+        <property name="debug" value="false"/>
+    </component>
+
+    <component name="speechMarker10"
+               type="edu.cmu.sphinx.frontend.endpoint.SpeechMarker" >
+	    <property name="speechTrailer" value="500"/>
+        <property name="endSilence" value="500"/>
+	    <property name="startSpeech" value="50"/>
+	    <property name="speechLeader" value="500"/>
+    </component>
+
+    <component name="nonSpeechDataFilter10"
+               type="edu.cmu.sphinx.frontend.endpoint.NonSpeechDataFilter">
+        <!--property name="mergeSpeechSegments" value="${mergeSpeechSegments}"/-->
+    </component>
+
+
+
+
+    <!-- ******************************************************* -->
+    <!--  monitors                                               -->
+    <!-- ******************************************************* -->
+
+
+    <!-- ******************************************************* -->
+    <!--  Miscellaneous components                               -->
+    <!-- ******************************************************* -->
+
+    <component name="logMath" type="edu.cmu.sphinx.util.LogMath">
+        <property name="logBase" value="1.0001"/>
+        <property name="useAddTable" value="true"/>
+    </component>
+
+</config>

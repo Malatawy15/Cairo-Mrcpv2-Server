@@ -1,0 +1,11 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Hotword example
+ */
+
+grammar hotwordExample;
+
+public <main> = ( computer {COMPUTER} );
+
+
