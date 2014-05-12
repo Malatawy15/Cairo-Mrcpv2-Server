@@ -19,6 +19,7 @@ public class RecogInterface {
 	private ReceiverConfig _config;
 
 	public RecogInterface(ReceiverConfig config) {
+		_recPools = new HashMap<String, ObjectPool>();
 		_config = config;
 	}
 
