@@ -80,7 +80,7 @@ public class ReceiverResource extends ResourceImpl {
 
     private MrcpServerSocket _mrcpServer;
     private ObjectPool _replicatorPool;
-    private ObjectPool _recEnginePool;
+    //private ObjectPool _recEnginePool;
     private RecogInterface _recogInterface;
     private ObjectPool _recorderEnginePool;
         
@@ -102,8 +102,8 @@ public class ReceiverResource extends ResourceImpl {
         //}
         _replicatorPool = RTPStreamReplicatorFactory.createObjectPool(
                 config.getRtpBasePort(), config.getMaxConnects(), localIpAddress);
-        _recEnginePool = SphinxRecEngineFactory.createObjectPool(
-                config.getSphinxConfigURL(), config.getEngines());
+      //  _recEnginePool = SphinxRecEngineFactory.createObjectPool(
+        //        config.getSphinxConfigURL(), config.getEngines());
         _recogInterface = new RecogInterface(config);
         _recorderEnginePool = SphinxRecorderFactory.createObjectPool(
                 config.getSphinxRecorderConfigURL(), config.getRecorderEngines());
