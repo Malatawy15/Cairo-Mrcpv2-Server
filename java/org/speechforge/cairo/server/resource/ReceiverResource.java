@@ -23,27 +23,6 @@
 package org.speechforge.cairo.server.resource;
 
 
-import org.speechforge.cairo.server.config.CairoConfig;
-import org.speechforge.cairo.server.config.ReceiverConfig;
-import org.speechforge.cairo.server.recog.MrcpRecogChannel;
-import org.speechforge.cairo.server.recog.RTPRecogChannel;
-import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineFactory;
-import org.speechforge.cairo.server.recorder.MrcpRecorderChannel;
-import org.speechforge.cairo.server.recorder.RTPRecorderChannel;
-import org.speechforge.cairo.server.recorder.RTPRecorderChannelImpl;
-import org.speechforge.cairo.server.recorder.RTPRecorderChannelS4Impl;
-import org.speechforge.cairo.server.recorder.sphinx.SphinxRecorderFactory;
-import org.speechforge.cairo.server.resource.session.ChannelResources;
-import org.speechforge.cairo.server.resource.session.RecognizerResources;
-import org.speechforge.cairo.server.resource.session.RecorderResources;
-import org.speechforge.cairo.rtp.server.RTPStreamReplicator;
-import org.speechforge.cairo.rtp.server.RTPStreamReplicatorFactory;
-import org.speechforge.cairo.util.CairoUtil;
-import org.speechforge.cairo.rtp.AudioFormats;
-import org.speechforge.cairo.sip.ResourceUnavailableException;
-import org.speechforge.cairo.sip.SdpMessage;
-import org.speechforge.cairo.sip.SipSession;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
@@ -63,11 +42,28 @@ import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.GnuParser;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
-import org.apache.commons.lang.Validate;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.log4j.Logger;
 import org.mrcp4j.MrcpResourceType;
 import org.mrcp4j.server.MrcpServerSocket;
+import org.speechforge.cairo.rtp.AudioFormats;
+import org.speechforge.cairo.rtp.server.RTPStreamReplicator;
+import org.speechforge.cairo.rtp.server.RTPStreamReplicatorFactory;
+import org.speechforge.cairo.server.config.CairoConfig;
+import org.speechforge.cairo.server.config.ReceiverConfig;
+import org.speechforge.cairo.server.recog.MrcpRecogChannel;
+import org.speechforge.cairo.server.recog.RTPRecogChannel;
+import org.speechforge.cairo.server.recog.RecogInterface;
+import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineFactory;
+import org.speechforge.cairo.server.recorder.MrcpRecorderChannel;
+import org.speechforge.cairo.server.recorder.RTPRecorderChannel;
+import org.speechforge.cairo.server.recorder.RTPRecorderChannelS4Impl;
+import org.speechforge.cairo.server.recorder.sphinx.SphinxRecorderFactory;
+import org.speechforge.cairo.server.resource.session.ChannelResources;
+import org.speechforge.cairo.server.resource.session.RecognizerResources;
+import org.speechforge.cairo.server.resource.session.RecorderResources;
+import org.speechforge.cairo.sip.ResourceUnavailableException;
+import org.speechforge.cairo.sip.SdpMessage;
 
 /**
  * Implements a {@link org.speechforge.cairo.server.resource.Resource} for handling MRCPv2 requests
@@ -84,6 +80,7 @@ public class ReceiverResource extends ResourceImpl {
     private MrcpServerSocket _mrcpServer;
     private ObjectPool _replicatorPool;
     private ObjectPool _recEnginePool;
+    private RecogInterface _recogInterface;
     private ObjectPool _recorderEnginePool;
         
 
@@ -106,6 +103,7 @@ public class ReceiverResource extends ResourceImpl {
                 config.getRtpBasePort(), config.getMaxConnects(), localIpAddress);
         _recEnginePool = SphinxRecEngineFactory.createObjectPool(
                 config.getSphinxConfigURL(), config.getEngines());
+        _recogInterface = new RecogInterface(config);
         _recorderEnginePool = SphinxRecorderFactory.createObjectPool(
                 config.getSphinxRecorderConfigURL(), config.getRecorderEngines());
     }

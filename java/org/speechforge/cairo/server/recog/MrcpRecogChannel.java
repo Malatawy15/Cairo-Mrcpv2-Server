@@ -113,8 +113,9 @@ public class MrcpRecogChannel extends MrcpGenericChannel implements RecogOnlyReq
             statusCode = MrcpResponse.STATUS_METHOD_NOT_VALID_IN_STATE;
         } else {
             GrammarLocation grammarLocation = null;
+            String contentType = null;
             if (request.hasContent()) {
-                String contentType = request.getContentType();
+                contentType = request.getContentType();
                 if (contentType.equalsIgnoreCase("application/jsgf")) {
                 	_logger.debug("processing jsgf");
                     // save grammar to file
@@ -202,7 +203,7 @@ public class MrcpRecogChannel extends MrcpGenericChannel implements RecogOnlyReq
                     }
                     _logger.debug("Recognition Mode is : "+hw+ "  So hotword flag is now: "+hotword);
                     _logger.debug("No input timeout value is "+noInputTimeout.longValue());
-                    _rtpChannel.recognize(new Listener(session), grammarLocation, noInputTimeout.longValue(), hotword);
+                    _rtpChannel.recognize(new Listener(session), grammarLocation, noInputTimeout.longValue(), hotword, contentType);
                     statusCode = MrcpResponse.STATUS_SUCCESS;
                     requestState = MrcpRequestState.IN_PROGRESS;
                     _state = RECOGNIZING;

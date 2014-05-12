@@ -45,247 +45,334 @@ import org.apache.log4j.Logger;
 
 /**
  * Handles recognition requests against an incoming RTP audio stream.
- *
- * @author Niels Godfredsen {@literal <}<a href="mailto:ngodfredsen@users.sourceforge.net">ngodfredsen@users.sourceforge.net</a>{@literal >}
+ * 
+ * @author Niels Godfredsen {@literal <}<a
+ *         href="mailto:ngodfredsen@users.sourceforge.net"
+ *         >ngodfredsen@users.sourceforge.net</a>{@literal >}
  */
 public class RTPRecogChannel {
 
-    public static final short WAITING_FOR_SPEECH = 0;
-    public static final short SPEECH_IN_PROGRESS = 1;
-    public static final short COMPLETE = 2;
+	public static final short WAITING_FOR_SPEECH = 0;
+	public static final short SPEECH_IN_PROGRESS = 1;
+	public static final short COMPLETE = 2;
 
-    static Logger _logger = Logger.getLogger(RTPRecogChannel.class);
+	static Logger _logger = Logger.getLogger(RTPRecogChannel.class);
 
-    private /*static*/ Timer _timer = new Timer();
+	private/* static */Timer _timer = new Timer();
 
-    private ObjectPool _recEnginePool;
-    private RTPStreamReplicator _replicator;
+	// private ObjectPool _recEnginePool;
+	private RecogInterface _recInterface;
+	private RTPStreamReplicator _replicator;
 
-    RecogListener _recogListener;
-    SphinxRecEngine _recEngine = null;
-    TimerTask _noInputTimeoutTask;
+	RecogListener _recogListener;
+	// SphinxRecEngine _recEngine = null;
+	TimerTask _noInputTimeoutTask;
 
-    private Processor _processor;
+	private Processor _processor;
 
-    volatile short _state = COMPLETE;
+	volatile short _state = COMPLETE;
 	private ProcessorReplicatorPair _pair;
 
-    /**
-     * TODOC
-     * @param recEnginePool 
-     * @param replicator 
-     */
-    public RTPRecogChannel(ObjectPool recEnginePool, RTPStreamReplicator replicator) {
-        Validate.notNull(recEnginePool, "Null recEnginePool!");
-        Validate.notNull(replicator, "Null replicator!");
+	/**
+	 * TODOC
+	 * 
+	 * @param recEnginePool
+	 * @param replicator
+	 */
+	/*
+	 * public RTPRecogChannel(ObjectPool recEnginePool, RTPStreamReplicator
+	 * replicator) { Validate.notNull(recEnginePool, "Null recEnginePool!");
+	 * Validate.notNull(replicator, "Null replicator!");
+	 * 
+	 * _recEnginePool = recEnginePool; _replicator = replicator; }
+	 */
+	public RTPRecogChannel(RecogInterface recInterface,
+			RTPStreamReplicator replicator) {
+		Validate.notNull(recInterface, "Null recInterface!");
+		Validate.notNull(replicator, "Null replicator!");
 
-        _recEnginePool = recEnginePool;
-        _replicator = replicator;
-    }
+		_recInterface = recInterface;
+		_replicator = replicator;
+	}
 
-    /**
-     * TODOC
-     * @param listener
-     * @param grammarLocation
-     * @param noInputTimeout
-     * @throws IllegalStateException
-     * @throws IOException
-     * @throws ResourceUnavailableException
-     * @throws GrammarException
-     */
-    public synchronized void recognize(RecogListener listener, GrammarLocation grammarLocation, long noInputTimeout, boolean hotword)
-      throws IllegalStateException, IOException, ResourceUnavailableException, GrammarException {
+	/**
+	 * TODOC
+	 * 
+	 * @param listener
+	 * @param grammarLocation
+	 * @param noInputTimeout
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 * @throws ResourceUnavailableException
+	 * @throws GrammarException
+	 */
 
-        if (_processor != null) {
-            throw new IllegalStateException("Recognition already in progress!");
-            // TODO: cancel or queue request instead (depending upon value of 'cancel-if-queue' header)
-        }
-        _logger.debug("OK, processor was null");
+	/*
+	 * public synchronized void recognize(RecogListener listener,
+	 * GrammarLocation grammarLocation, long noInputTimeout, boolean hotword)
+	 * throws IllegalStateException, IOException, ResourceUnavailableException,
+	 * GrammarException {
+	 * 
+	 * if (_processor != null) { throw new
+	 * IllegalStateException("Recognition already in progress!"); // TODO:
+	 * cancel or queue request instead (depending upon value of
+	 * 'cancel-if-queue' header) } _logger.debug("OK, processor was null");
+	 * 
+	 * 
+	 * _pair = _replicator.createRealizedProcessor(CONTENT_DESCRIPTOR_RAW,
+	 * 10000,SourceAudioFormat.PREFERRED_MEDIA_FORMATS); // TODO: specify audio
+	 * format _processor = _pair.getProc();
+	 * _logger.debug("OK, created new realized processor");
+	 * 
+	 * PushBufferDataSource dataSource = (PushBufferDataSource)
+	 * _processor.getDataOutput();
+	 * _logger.debug("OK, created new datasource "+dataSource);
+	 * 
+	 * if (dataSource == null) { throw new
+	 * IOException("Processor.getDataOutput() returned null!"); }
+	 * 
+	 * try { _logger.debug("Borrowing recognition engine from object pool...");
+	 * _recEngine = (SphinxRecEngine) _recEnginePool.borrowObject(); } catch
+	 * (Exception e) { e.printStackTrace(); _logger.debug(e, e);
+	 * closeProcessor(); throw new
+	 * ResourceUnavailableException("All rec engines are in use!", e); // TODO:
+	 * wait for availability...? }
+	 * 
+	 * _logger.debug("Recognize command with a listener: "+listener);
+	 * _recogListener = new Listener(listener);
+	 * 
+	 * try { _logger.debug("Loading grammar...");
+	 * _recEngine.loadJSGF(grammarLocation); _recEngine.setHotword(hotword);
+	 * _logger.debug("Starting recognition..."); _state = WAITING_FOR_SPEECH;
+	 * _recEngine.startRecognition(dataSource, _recogListener);
+	 * 
+	 * _processor.addControllerListener(new ProcessorStarter());
+	 * _processor.start();
+	 * 
+	 * _recEngine.startRecogThread();
+	 * 
+	 * if (noInputTimeout > 0) { startInputTimers(noInputTimeout); }
+	 * 
+	 * } catch (GrammarException e) { closeProcessor(); throw e; } catch
+	 * (IOException e) { closeProcessor(); throw e; } }
+	 */
 
+	public synchronized void recognize(RecogListener listener,
+			GrammarLocation grammarLocation, long noInputTimeout,
+			boolean hotword, String appType) throws IllegalStateException,
+			IOException, ResourceUnavailableException, GrammarException {
 
-        _pair  = _replicator.createRealizedProcessor(CONTENT_DESCRIPTOR_RAW, 10000,SourceAudioFormat.PREFERRED_MEDIA_FORMATS); // TODO: specify audio format
-        _processor = _pair.getProc();
-        _logger.debug("OK, created new realized processor");
-        
-        PushBufferDataSource dataSource = (PushBufferDataSource) _processor.getDataOutput();
-        _logger.debug("OK, created new datasource "+dataSource);
-        
-        if (dataSource == null) {
-            throw new IOException("Processor.getDataOutput() returned null!");
-        }
+		if (_processor != null) {
+			throw new IllegalStateException("Recognition already in progress!");
+			// TODO: cancel or queue request instead (depending upon value of
+			// 'cancel-if-queue' header)
+		}
+		_logger.debug("OK, processor was null");
 
-        try {
-            _logger.debug("Borrowing recognition engine from object pool...");
-            _recEngine = (SphinxRecEngine) _recEnginePool.borrowObject();
-        } catch (Exception e) {
-        	e.printStackTrace();
-            _logger.debug(e, e);
-            closeProcessor();
-            throw new ResourceUnavailableException("All rec engines are in use!", e);
-            // TODO: wait for availability...?
-        }
+		_pair = _replicator.createRealizedProcessor(CONTENT_DESCRIPTOR_RAW,
+				10000, SourceAudioFormat.PREFERRED_MEDIA_FORMATS); // TODO:
+																	// specify
+																	// audio
+																	// format
+		_processor = _pair.getProc();
+		_logger.debug("OK, created new realized processor");
 
-        _logger.debug("Recognize command with a listener: "+listener);
-        _recogListener = new Listener(listener);
-        
-        try {
-            _logger.debug("Loading grammar...");
-            _recEngine.loadJSGF(grammarLocation);
-            _recEngine.setHotword(hotword);
-            _logger.debug("Starting recognition...");
-            _state = WAITING_FOR_SPEECH;
-            _recEngine.startRecognition(dataSource, _recogListener);
+		PushBufferDataSource dataSource = (PushBufferDataSource) _processor
+				.getDataOutput();
+		_logger.debug("OK, created new datasource " + dataSource);
 
-            _processor.addControllerListener(new ProcessorStarter());
-            _processor.start();
+		if (dataSource == null) {
+			throw new IOException("Processor.getDataOutput() returned null!");
+		}
 
-            _recEngine.startRecogThread();
+		try {
+			_logger.debug("Borrowing recognition engine from object pool...");
+			// _recEngine = (SphinxRecEngine) _recEnginePool.borrowObject();
+			_recInterface.activateRecEngine(appType, grammarLocation, hotword);
 
-            if (noInputTimeout > 0) {
-                startInputTimers(noInputTimeout);
-            }
+		} catch (Exception e) {
+			e.printStackTrace();
+			_logger.debug(e, e);
+			closeProcessor();
+			throw new ResourceUnavailableException(
+					"All rec engines are in use!", e);
+			// TODO: wait for availability...?
+		}
 
-        } catch (GrammarException e) {
-            closeProcessor();
-            throw e;
-        } catch (IOException e) {
-            closeProcessor();
-            throw e;
-        }
-    }
+		_logger.debug("Recognize command with a listener: " + listener);
+		_recogListener = new Listener(listener);
 
-    /**
-     * Starts the input timers which trigger no-input-timeout if speech has not started after the specified time.
-     * @param noInputTimeout the amount of time to wait, in milliseconds, before triggering a no-input-timeout. 
-     * @return {@code true} if input timers were started or {@code false} if speech has already started.
-     * @throws IllegalStateException if recognition is not in progress or if the input timers have already been started.
-     */
-    public synchronized boolean startInputTimers(long noInputTimeout) throws IllegalStateException {
-        if (noInputTimeout <= 0) {
-            throw new IllegalArgumentException("Illegal value for no-input-timeout: " + noInputTimeout);
-        }
-        if (_processor == null) {
-            throw new IllegalStateException("Recognition not in progress!");
-        }
-        if (_noInputTimeoutTask != null) {
-            throw new IllegalStateException("InputTimer already started!");
-        }
+		try {
+			_logger.debug("Starting recognition...");
+			_state = WAITING_FOR_SPEECH;
 
-        boolean startInputTimers = (_state == WAITING_FOR_SPEECH); 
-        if (startInputTimers) {
-            _noInputTimeoutTask = new NoInputTimeoutTask();
-            _timer.schedule(_noInputTimeoutTask, noInputTimeout);
-        }
+			_processor.addControllerListener(new ProcessorStarter());
+			_processor.start();
 
-        return startInputTimers;
-    }
+			_recInterface.startRecognition(dataSource, _recogListener);
 
-    public synchronized void closeProcessor() {
-        if (_processor != null) {
-          _logger.debug("Closing processor...");
-            _processor.close();
-            _processor = null;
-            _replicator.removeReplicant( _pair.getPbds());
-        }
-        if (_recEngine != null) {
-            _logger.debug("Returning recengine to pool...");
-            try {
-                _recEnginePool.returnObject(_recEngine);
-            } catch (Exception e) {
-                // TODO Auto-generated catch block
-                _logger.debug(e, e);
-            }
-            _recEngine = null;
-        } else {
-            _logger.warn("No recengine to return to pool!");
-        }
-    }
+			if (noInputTimeout > 0) {
+				startInputTimers(noInputTimeout);
+			}
 
-    private class NoInputTimeoutTask extends TimerTask {
+		} catch (IOException e) {
+			closeProcessor();
+			throw e;
+		}
+	}
 
-        /* (non-Javadoc)
-         * @see java.util.TimerTask#run()
-         */
-        @Override
-        public void run() {
-            synchronized (RTPRecogChannel.this) {
-                _noInputTimeoutTask = null;
-                if (_state == WAITING_FOR_SPEECH) {
-                    _state = COMPLETE;
-                    closeProcessor();
-                    if (_recogListener != null) {
-                        _recogListener.noInputTimeout();
-                    }
-                }
-            }
-        }
-        
-    }
+	public void setState(short newState) {
+		_state = newState;
+	}
 
-    private class Listener extends RecogListenerDecorator {
+	/**
+	 * Starts the input timers which trigger no-input-timeout if speech has not
+	 * started after the specified time.
+	 * 
+	 * @param noInputTimeout
+	 *            the amount of time to wait, in milliseconds, before triggering
+	 *            a no-input-timeout.
+	 * @return {@code true} if input timers were started or {@code false} if
+	 *         speech has already started.
+	 * @throws IllegalStateException
+	 *             if recognition is not in progress or if the input timers have
+	 *             already been started.
+	 */
+	public synchronized boolean startInputTimers(long noInputTimeout)
+			throws IllegalStateException {
+		if (noInputTimeout <= 0) {
+			throw new IllegalArgumentException(
+					"Illegal value for no-input-timeout: " + noInputTimeout);
+		}
+		if (_processor == null) {
+			throw new IllegalStateException("Recognition not in progress!");
+		}
+		if (_noInputTimeoutTask != null) {
+			throw new IllegalStateException("InputTimer already started!");
+		}
 
-        /**
-         * TODOC
-         * @param recogListener
-         */
-        public Listener(RecogListener recogListener) {
-            super(recogListener);
-        }
+		boolean startInputTimers = (_state == WAITING_FOR_SPEECH);
+		if (startInputTimers) {
+			_noInputTimeoutTask = new NoInputTimeoutTask();
+			_timer.schedule(_noInputTimeoutTask, noInputTimeout);
+		}
 
-        /* (non-Javadoc)
-         * @see org.speechforge.cairo.server.recog.RecogListener#speechStarted()
-         */
-        @Override
-        public void speechStarted() {
-            _logger.debug("speechStarted()");
+		return startInputTimers;
+	}
 
-            synchronized (RTPRecogChannel.this) {
-                if (_state == WAITING_FOR_SPEECH) {
-                    _state = SPEECH_IN_PROGRESS;
-                }
-                if (_noInputTimeoutTask != null) {
-                    _noInputTimeoutTask.cancel();
-                    _noInputTimeoutTask = null;
-                }
-            }
-            super.speechStarted();
-        }
+	public synchronized void closeProcessor() {
+		if (_processor != null) {
+			_logger.debug("Closing processor...");
+			_processor.close();
+			_processor = null;
+			_replicator.removeReplicant(_pair.getPbds());
+		}
+		/*
+		 * if (_recEngine != null) {
+		 * _logger.debug("Returning recengine to pool..."); try {
+		 * _recEnginePool.returnObject(_recEngine); } catch (Exception e) { //
+		 * TODO Auto-generated catch block _logger.debug(e, e); } _recEngine =
+		 * null; } else { _logger.warn("No recengine to return to pool!"); }
+		 */
 
-        /* (non-Javadoc)
-         * @see org.speechforge.cairo.server.recog.RecogListener#recognitionComplete()
-         */
-        @Override
-        public void recognitionComplete(RecognitionResult result) {
-            _logger.debug("recognitionComplete()");
+		_recInterface.returnRecEngine();
 
-            boolean doit = false;
-            synchronized (RTPRecogChannel.this) {
-                if (_state == SPEECH_IN_PROGRESS) {
-                    _state = COMPLETE;
-                    doit = true;
-                    closeProcessor();
-                }
-            }
+	}
 
-            if (doit) {
-                super.recognitionComplete(result);
-            }
-        }
+	private class NoInputTimeoutTask extends TimerTask {
 
-//        public void noInputTimeout() {
-//            boolean doit = false;
-//            synchronized (RTPRecogChannel.this) {
-//                doit = _speechStarted;
-//                _speechStarted = false;
-//            }
-//            try {
-//                _recEnginePool.returnObject(_recEngine);
-//            } catch (Exception e) {
-//                // TODO Auto-generated catch block
-//                _logger.debug(e, e);
-//            }
-//            super.noInputTimeout();
-//        }
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.util.TimerTask#run()
+		 */
+		@Override
+		public void run() {
+			synchronized (RTPRecogChannel.this) {
+				_noInputTimeoutTask = null;
+				if (_state == WAITING_FOR_SPEECH) {
+					_state = COMPLETE;
+					closeProcessor();
+					if (_recogListener != null) {
+						_recogListener.noInputTimeout();
+					}
+				}
+			}
+		}
 
-    }
+	}
+
+	private class Listener extends RecogListenerDecorator {
+
+		/**
+		 * TODOC
+		 * 
+		 * @param recogListener
+		 */
+		public Listener(RecogListener recogListener) {
+			super(recogListener);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see org.speechforge.cairo.server.recog.RecogListener#speechStarted()
+		 */
+		@Override
+		public void speechStarted() {
+			_logger.debug("speechStarted()");
+
+			synchronized (RTPRecogChannel.this) {
+				if (_state == WAITING_FOR_SPEECH) {
+					_state = SPEECH_IN_PROGRESS;
+				}
+				if (_noInputTimeoutTask != null) {
+					_noInputTimeoutTask.cancel();
+					_noInputTimeoutTask = null;
+				}
+			}
+			super.speechStarted();
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see
+		 * org.speechforge.cairo.server.recog.RecogListener#recognitionComplete
+		 * ()
+		 */
+		@Override
+		public void recognitionComplete(RecognitionResult result) {
+			_logger.debug("recognitionComplete()");
+
+			boolean doit = false;
+			synchronized (RTPRecogChannel.this) {
+				if (_state == SPEECH_IN_PROGRESS) {
+					_state = COMPLETE;
+					doit = true;
+					closeProcessor();
+				}
+			}
+
+			if (doit) {
+				super.recognitionComplete(result);
+			}
+		}
+
+		// public void noInputTimeout() {
+		// boolean doit = false;
+		// synchronized (RTPRecogChannel.this) {
+		// doit = _speechStarted;
+		// _speechStarted = false;
+		// }
+		// try {
+		// _recEnginePool.returnObject(_recEngine);
+		// } catch (Exception e) {
+		// // TODO Auto-generated catch block
+		// _logger.debug(e, e);
+		// }
+		// super.noInputTimeout();
+		// }
+
+	}
 }
