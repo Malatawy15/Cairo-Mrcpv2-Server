@@ -64,6 +64,7 @@ import org.speechforge.cairo.server.resource.session.RecognizerResources;
 import org.speechforge.cairo.server.resource.session.RecorderResources;
 import org.speechforge.cairo.sip.ResourceUnavailableException;
 import org.speechforge.cairo.sip.SdpMessage;
+import org.speechforge.cairo.util.CairoUtil;
 
 /**
  * Implements a {@link org.speechforge.cairo.server.resource.Resource} for handling MRCPv2 requests

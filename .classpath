@@ -31,5 +31,6 @@
 	<classpathentry kind="lib" path="/cairo-0.3/lib/voices.txt"/>
 	<classpathentry kind="lib" path="/cairo-0.3/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz-1.0beta.jar"/>
 	<classpathentry kind="lib" path="/cairo-0.3/lib/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz-1.0beta.jar"/>
+	<classpathentry kind="lib" path="/cairo-0.3/cairo-0.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
