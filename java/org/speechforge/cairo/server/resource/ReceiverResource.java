@@ -168,7 +168,7 @@ public class ReceiverResource extends ResourceImpl {
                             //TODO:  handle no media channel in the request corresponding to the mrcp channel (sip error)
                         }
 
-                        RTPRecogChannel recog = new RTPRecogChannel(_recEnginePool, replicator);
+                        RTPRecogChannel recog = new RTPRecogChannel(_recogInterface, replicator);
                         _mrcpServer.openChannel(channelID, new MrcpRecogChannel(channelID, recog, _baseGrammarDir));
                         md.getMedia().setMediaPort(_mrcpServer.getPort());
                         rtpmd.get(0).getMedia().setMediaFormats(af.filterOutUnSupportedFormatsInOffer());
