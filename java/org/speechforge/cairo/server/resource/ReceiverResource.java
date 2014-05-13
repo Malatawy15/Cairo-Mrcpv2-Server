@@ -80,7 +80,7 @@ public class ReceiverResource extends ResourceImpl {
 
     private MrcpServerSocket _mrcpServer;
     private ObjectPool _replicatorPool;
-    private ObjectPool _recEnginePool;
+//    private ObjectPool _recEnginePool;
     private RecogInterface _recogInterface;
     private ObjectPool _recorderEnginePool;
         
