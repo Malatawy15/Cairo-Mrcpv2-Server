@@ -33,7 +33,7 @@ public class ActiveRecognizer {
 
 	public void loadLM(GrammarLocation grammarLocation)
 			throws GrammarException, IOException {
-		if (_appType == "application/jsgf") {
+		if (_appType.equals("application/jsgf")) {
 			((SphinxRecEngine) _recEngine).loadJSGF(grammarLocation);
 		}
 	}

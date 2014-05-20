@@ -21,6 +21,19 @@ public class RecogInterface {
 	public RecogInterface(ReceiverConfig config) {
 		_recPools = new HashMap<String, ObjectPool>();
 		_config = config;
+		initialize();
+	}
+	
+	public void initialize(){
+		try {
+			_recPools.put(
+					"application/jsgf",
+					SphinxRecEngineFactory.createObjectPool(
+							_config.getSphinxConfigURL(),
+							_config.getEngines()));
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void startRecognition(PushBufferDataSource dataSource,
