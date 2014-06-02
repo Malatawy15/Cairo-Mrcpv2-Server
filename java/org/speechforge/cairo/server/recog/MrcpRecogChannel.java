@@ -116,6 +116,8 @@ public class MrcpRecogChannel extends MrcpGenericChannel implements RecogOnlyReq
             String contentType = null;
             if (request.hasContent()) {
                 contentType = request.getContentType();
+                _logger.info("App type: " + contentType);
+                _logger.info("Content: " + request.getContent());
                 if (contentType.equalsIgnoreCase("application/jsgf")) {
                 	_logger.debug("processing jsgf");
                     // save grammar to file
