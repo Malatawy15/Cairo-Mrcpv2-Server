@@ -174,6 +174,10 @@ public class SphinxRecEngine extends AbstractPoolableObject implements SpeechEve
        _logger.debug("loadJSGF(): completed successfully.");
 //	_jsgfGrammar.deallocate();
     }
+    
+    public synchronized void deallocateJSGF(){
+    	_jsgfGrammar.deallocate();
+    }
 
     /**
      * TODOC

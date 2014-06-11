@@ -37,12 +37,19 @@ public class ActiveRecognizer {
 			((SphinxRecEngine) _recEngine).loadJSGF(grammarLocation);
 		}
 	}
+	
+	public void deallocateLM(){
+		if (_appType.equals("application/jsgf")) {
+			((SphinxRecEngine) _recEngine).deallocateJSGF();
+		}
+	}
 
 	public void setHotword(boolean hotword) {
 		((SphinxRecEngine) _recEngine).setHotword(hotword);
 	}
 
 	public void returnRecEngine() throws Exception {
+		deallocateLM();
 		_recPool.returnObject(_recEngine);
 	}
 
