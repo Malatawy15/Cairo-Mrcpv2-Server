@@ -32,5 +32,50 @@
 	<classpathentry kind="lib" path="/cairo-0.3/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz-1.0beta.jar"/>
 	<classpathentry kind="lib" path="/cairo-0.3/lib/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz-1.0beta.jar"/>
 	<classpathentry kind="lib" path="/cairo-0.3/cairo-0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/asterisk-java-0.3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cairo-20110208.042746-5.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cairo-client-20110208.042332-3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cairo-rtp-20110208.040900-3-test.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cairo-rtp-20110208.040900-3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cairo-sip-20110208.042105-3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cmu_us_kal.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cmudict-04.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/cmulex.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-collections-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-configuration-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/concurrent-1.3.4.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/en_us.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/freetts.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/httpcomponents-client-4.0-beta2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/httpcomponents-core-4.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/httpcomponents-mime-4.0-beta2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/httpcomponents-mime4j-0.5.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jain-sip-api-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jain-sip-ri-1.2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jakarta-regexp-1.4.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/js-1.6R5.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jsapi-1.0-base-20100604.065806-2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jsapi.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jvxml-20100531.072810-1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/jvxml-xml-20100531.072839-1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/log4j-1.2.13.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/mina-0.8.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/mrcp4j-0.2.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/nist-sdp-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/sjsxp-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/slf4j-simple-1.0-beta9.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/speechcloud-client-20100531.070150-10.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/sphinx4-20100604.065731-3.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/spring-2.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/stax-api-1.0.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/WSJ_8gau_13dCep_8kHz_31mel_200Hz_3500Hz-20100604.065417-4.jar"/>
+	<classpathentry kind="lib" path="/Users/tarekmehrez/Desktop/lib/WSJ_8gau_13dCep_16k_40mel_130Hz_6800Hz-20100604.065136-4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
