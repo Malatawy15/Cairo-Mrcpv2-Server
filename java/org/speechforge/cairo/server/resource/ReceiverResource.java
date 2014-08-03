@@ -187,51 +187,51 @@ public class ReceiverResource extends ResourceImpl {
                         sessionChannels.put(channelID, cr);
                         break;
 
-//                     case RECORDER:
-//                    	 _logger.info("processing recorder request...");
-//                         rtpmd = request.getAudioChansForThisControlChan(md);
-//                         //TODO: Check if audio format is supported.  If not resource not available exception should be shown.
-//                         //      maybe this could be part of the up-front validation
-//                         formatsInRequest = rtpmd.get(0).getMedia().getMediaFormats(true); 
-//                         af  = AudioFormats.constructWithSdpVector(formatsInRequest);
-//                         //formatsInRequest = AudioFormats.filterOutUnSupportedFormatsInOffer(formatsInRequest);
-//  
-//
-//                         //if null, borrow a replicator.  else we will use the same one fo the other channel in this request
-//                         //TODO: Is this correct in all cases?  Could there be seperate rtp channels for recording and recognizing? 
-//                         if (replicator == null )
-//                             replicator =  (RTPStreamReplicator) _replicatorPool.borrowObject();
-//                         if (rtpmd.size() > 0) {
-//                             //TODO: What if there is more than 1 media channels?
-//
-//                             rtpmd.get(0).getMedia().setMediaPort(replicator.getPort());
-//                         } else {
-//                             //TODO:  handle no media channel in the request corresponding to the mrcp channel (sip error)
-//                         }                  	 
-//                    	 
-//                     	//Validate.isTrue(_baseRecordingDir.isDirectory(), "baseRecordingDir parameter was not a directory: ", _baseRecordingDir);
-//                        File recordingDir = new File(_baseRecordingDir, channelID);
-//                        
-//                        //TODO: get this from the mrcp header
-//                        ContentDescriptor cd = new FileTypeDescriptor(FileTypeDescriptor.WAVE);
-//
-//                        RTPRecorderChannel recorder = new RTPRecorderChannelS4Impl(_recorderEnginePool, recordingDir, replicator, cd);
-//                        _mrcpServer.openChannel(channelID, new MrcpRecorderChannel(recorder));
-//                        md.getMedia().setMediaPort(_mrcpServer.getPort());
-//                        rtpmd.get(0).getMedia().setMediaFormats(af.filterOutUnSupportedFormatsInOffer());   
-//                        _logger.info(_mrcpServer.getPort());
-//  
-//                        // Create a channel resources object and put it in the channel map (which is in the session).  
-//                        // These resources must be returned to the pool when the channel is closed.  In the case of a 
-//                        // transmitter, the resource is the RTP Replicator in the rtpReplicatorPool
-//                        // TODO:  The channels should cleanup after themselves (retrun resource to pools)
-//                        //        instead of having to keep track of the resoruces in the session.
-//                        ChannelResources recRes = new RecorderResources();
-//                        recRes.setChannelId(channelID);
-//                        ((RecorderResources)recRes).setRecorderReplicator(replicator);
-//                        ((RecorderResources)recRes).setRecorder(recorder);
-//                        sessionChannels.put(channelID, recRes);
-//                        
+                     case RECORDER:
+                    	 _logger.info("processing recorder request...");
+                         rtpmd = request.getAudioChansForThisControlChan(md);
+                         //TODO: Check if audio format is supported.  If not resource not available exception should be shown.
+                         //      maybe this could be part of the up-front validation
+                         formatsInRequest = rtpmd.get(0).getMedia().getMediaFormats(true); 
+                         af  = AudioFormats.constructWithSdpVector(formatsInRequest);
+                         //formatsInRequest = AudioFormats.filterOutUnSupportedFormatsInOffer(formatsInRequest);
+  
+
+                         //if null, borrow a replicator.  else we will use the same one fo the other channel in this request
+                         //TODO: Is this correct in all cases?  Could there be seperate rtp channels for recording and recognizing? 
+                         if (replicator == null )
+                             replicator =  (RTPStreamReplicator) _replicatorPool.borrowObject();
+                         if (rtpmd.size() > 0) {
+                             //TODO: What if there is more than 1 media channels?
+
+                             rtpmd.get(0).getMedia().setMediaPort(replicator.getPort());
+                         } else {
+                             //TODO:  handle no media channel in the request corresponding to the mrcp channel (sip error)
+                         }                  	 
+                    	 
+                     	//Validate.isTrue(_baseRecordingDir.isDirectory(), "baseRecordingDir parameter was not a directory: ", _baseRecordingDir);
+                        File recordingDir = new File(_baseRecordingDir, channelID);
+                        
+                        //TODO: get this from the mrcp header
+                        ContentDescriptor cd = new FileTypeDescriptor(FileTypeDescriptor.WAVE);
+
+                        RTPRecorderChannel recorder = new RTPRecorderChannelS4Impl(_recorderEnginePool, recordingDir, replicator, cd);
+                        _mrcpServer.openChannel(channelID, new MrcpRecorderChannel(recorder));
+                        md.getMedia().setMediaPort(_mrcpServer.getPort());
+                        rtpmd.get(0).getMedia().setMediaFormats(af.filterOutUnSupportedFormatsInOffer());   
+                        _logger.info(_mrcpServer.getPort());
+  
+                        // Create a channel resources object and put it in the channel map (which is in the session).  
+                        // These resources must be returned to the pool when the channel is closed.  In the case of a 
+                        // transmitter, the resource is the RTP Replicator in the rtpReplicatorPool
+                        // TODO:  The channels should cleanup after themselves (retrun resource to pools)
+                        //        instead of having to keep track of the resoruces in the session.
+                        ChannelResources recRes = new RecorderResources();
+                        recRes.setChannelId(channelID);
+                        ((RecorderResources)recRes).setRecorderReplicator(replicator);
+                        ((RecorderResources)recRes).setRecorder(recorder);
+                        sessionChannels.put(channelID, recRes);
+                        
                         break;
 
                     default:
