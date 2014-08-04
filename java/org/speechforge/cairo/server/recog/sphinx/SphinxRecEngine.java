@@ -169,10 +169,17 @@ public class SphinxRecEngine extends AbstractPoolableObject implements SpeechEve
      */
     public synchronized void loadJSGF(GrammarLocation grammarLocation) throws IOException, GrammarException {
     	
+    	_logger.info("Allocating grammar");
+    	_jsgfGrammar.allocate();
+    	_logger.info("Loading grammar");
         _jsgfGrammar.setBaseURL(grammarLocation.getBaseURL());
         _jsgfGrammar.loadJSGF(grammarLocation.getGrammarName());
        _logger.debug("loadJSGF(): completed successfully.");
 //	_jsgfGrammar.deallocate();
+    }
+    
+    public synchronized void deallocateJSGF(){
+    	_jsgfGrammar.deallocate();
     }
 
     /**

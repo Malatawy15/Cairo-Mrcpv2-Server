@@ -22,10 +22,6 @@
  */
 package org.speechforge.cairo.server.recog;
 
-import org.speechforge.cairo.exception.UnsupportedHeaderException;
-import org.speechforge.cairo.server.MrcpGenericChannel;
-import org.speechforge.cairo.exception.ResourceUnavailableException;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -48,11 +44,14 @@ import org.mrcp4j.message.header.CompletionCause;
 import org.mrcp4j.message.header.IllegalValueException;
 import org.mrcp4j.message.header.MrcpHeader;
 import org.mrcp4j.message.header.MrcpHeaderName;
+import org.mrcp4j.message.request.MrcpRequestFactory.UnimplementedRequest;
 import org.mrcp4j.message.request.StartInputTimersRequest;
 import org.mrcp4j.message.request.StopRequest;
-import org.mrcp4j.message.request.MrcpRequestFactory.UnimplementedRequest;
 import org.mrcp4j.server.MrcpSession;
 import org.mrcp4j.server.provider.RecogOnlyRequestHandler;
+import org.speechforge.cairo.exception.ResourceUnavailableException;
+import org.speechforge.cairo.exception.UnsupportedHeaderException;
+import org.speechforge.cairo.server.MrcpGenericChannel;
 
 /**
  * Handles MRCPv2 recognition requests by delegating to a dedicated {@link org.speechforge.cairo.server.recog.RTPRecogChannel}.
@@ -100,7 +99,7 @@ public class MrcpRecogChannel extends MrcpGenericChannel implements RecogOnlyReq
     /* (non-Javadoc)
      * @see org.mrcp4j.server.provider.RecogOnlyRequestHandler#recognize(org.mrcp4j.message.request.MrcpRequestFactory.UnimplementedRequest, org.mrcp4j.server.MrcpSession)
      */
-    public synchronized MrcpResponse recognize(UnimplementedRequest request, MrcpSession session) {
+    public synchronized MrcpResponse recognize(UnimplementedRequest request, MrcpSession session){
 
         MrcpRequestState requestState = MrcpRequestState.COMPLETE;
         MrcpHeader completionCauseHeader = null;
@@ -116,13 +115,16 @@ public class MrcpRecogChannel extends MrcpGenericChannel implements RecogOnlyReq
             String contentType = null;
             if (request.hasContent()) {
                 contentType = request.getContentType();
+                _logger.info("App type: " + contentType);
+                _logger.info("Content: " + request.getContent());
                 if (contentType.equalsIgnoreCase("application/jsgf")) {
                 	_logger.debug("processing jsgf");
                     // save grammar to file
                     MrcpHeader contentIdHeader = request.getHeader(MrcpHeaderName.CONTENT_ID);
                     String grammarID = (contentIdHeader == null) ? null : contentIdHeader.getValueString();
                     try {
-                        grammarLocation = _grammarManager.saveGrammar(grammarID, request.getContent());
+                        // grammarLocation = _grammarManager.saveGrammar(grammarID, request.getContent());
+                    	grammarLocation = new GrammarLocation(new URL(request.getContent()));
                     } catch (IOException e) {
                         _logger.debug(e, e);
                         statusCode = MrcpResponse.STATUS_SERVER_INTERNAL_ERROR;
