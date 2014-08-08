@@ -150,6 +150,7 @@ public class ReceiverResource extends ResourceImpl {
                     AudioFormats af = null;
                     switch (resourceType) {
                     case  SPEECHRECOG:
+                        _logger.debug("resource type in recog..");
                         rtpmd = request.getAudioChansForThisControlChan(md);
                         //TODO: Check if audio format is supported.  If not resource not available exception should be shown.
                         //      maybe this could be part of the up-front validation
@@ -188,6 +189,8 @@ public class ReceiverResource extends ResourceImpl {
                         break;
 
                      case RECORDER:
+                         _logger.debug("resource type in record..");
+
                     	 _logger.info("processing recorder request...");
                          rtpmd = request.getAudioChansForThisControlChan(md);
                          //TODO: Check if audio format is supported.  If not resource not available exception should be shown.
