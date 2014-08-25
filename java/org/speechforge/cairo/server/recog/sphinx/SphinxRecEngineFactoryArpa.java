@@ -19,7 +19,8 @@ public class SphinxRecEngineFactoryArpa extends SphinxRecEngineFactory {
 	}
 
 	public PoolableObject makeObject() throws Exception {
-        return new SphinxRecEngineARPA(super._cm, super.id++);
+		//here it was super.id++
+        return new SphinxRecEngineARPA(super._cm, super.id);
     }
 	
 	public static ObjectPool createObjectPool(URL sphinxConfigURL, int instances) 
