@@ -33,11 +33,11 @@ public class RecogInterface {
 					SphinxRecEngineFactoryJsgf.createObjectPool(
 							_config.getSphinxConfigURL(),
 							_config.getEngines()));
-			_recPools.put(
+			/*_recPools.put(
 					"application/arpa",
 					SphinxRecEngineFactoryArpa.createObjectPool(
 							_config.getSphinxConfigURL(),
-							_config.getEngines()));
+							_config.getEngines()));*/
 		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
