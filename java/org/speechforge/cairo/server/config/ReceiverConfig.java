@@ -40,6 +40,7 @@ public class ReceiverConfig extends ResourceConfig {
 
     private File _baseGrammarDir;
     private URL _sphinxConfigURL;
+    private URL _sphinxArpaConfigURL;
     private File _baseRecordingDir;
 
 
@@ -71,7 +72,14 @@ public class ReceiverConfig extends ResourceConfig {
                     _logger.debug("SphinxConfigURL: " + _sphinxConfigURL);
                 }
             }
-            
+            if (_sphinxArpaConfigURL == null) {
+                _sphinxArpaConfigURL = this.getClass().getResource("/config/sphinx-arpa-config.xml");
+                if (_sphinxArpaConfigURL == null) {
+                    throw new ConfigurationException("SphinxArpa config URL not found in either cairo config file or cairo classpath!");
+                } else if (_logger.isDebugEnabled()) {
+                    _logger.debug("SphinxArpaConfigURL: " + _sphinxArpaConfigURL);
+                }
+            }
             try {
                 String sphinxRecorderConfigURL = config.getString("resources.resource(" + index + ").sphinxRecorderConfigURL");
                 if (sphinxRecorderConfigURL != null && sphinxRecorderConfigURL.length() > 0) {
@@ -125,6 +133,14 @@ public class ReceiverConfig extends ResourceConfig {
      */
     public URL getSphinxConfigURL() {
         return _sphinxConfigURL;
+    }
+    
+    /**
+     * TODOC
+     * @return Returns the sphinxConfigURL.
+     */
+    public URL getSphinxArpaConfigURL() {
+        return _sphinxArpaConfigURL;
     }
 
     /**
