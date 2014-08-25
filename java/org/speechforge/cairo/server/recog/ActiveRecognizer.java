@@ -9,6 +9,7 @@ import javax.speech.recognition.GrammarException;
 import org.apache.commons.pool.ObjectPool;
 import org.apache.log4j.Logger;
 import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngine;
+import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineJSGF;
 
 public class ActiveRecognizer {
 
@@ -26,26 +27,30 @@ public class ActiveRecognizer {
 
 	public void startRecognition(PushBufferDataSource dataSource,
 			RecogListener recogListener) throws UnsupportedEncodingException {
-		((SphinxRecEngine) _recEngine).startRecognition(dataSource,
-				recogListener);
-		((SphinxRecEngine) _recEngine).startRecogThread();
+		if (_appType.equals("application/jsgf")) {
+			((SphinxRecEngineJSGF) _recEngine).startRecognition(dataSource,
+					recogListener);
+			((SphinxRecEngineJSGF) _recEngine).startRecogThread();
+		}
 	}
 
 	public void loadLM(GrammarLocation grammarLocation)
 			throws GrammarException, IOException {
 		if (_appType.equals("application/jsgf")) {
-			((SphinxRecEngine) _recEngine).loadJSGF(grammarLocation);
+			((SphinxRecEngineJSGF) _recEngine).loadJSGF(grammarLocation);
 		}
 	}
 	
 	public void deallocateLM(){
 		if (_appType.equals("application/jsgf")) {
-			((SphinxRecEngine) _recEngine).deallocateJSGF();
+			((SphinxRecEngineJSGF) _recEngine).deallocateJSGF();
 		}
 	}
 
 	public void setHotword(boolean hotword) {
-		((SphinxRecEngine) _recEngine).setHotword(hotword);
+		if (_appType.equals("application/jsgf")) {
+			((SphinxRecEngineJSGF) _recEngine).deallocateJSGF();
+		}
 	}
 
 	public void returnRecEngine() throws Exception {
