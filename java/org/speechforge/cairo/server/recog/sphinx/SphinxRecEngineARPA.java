@@ -95,6 +95,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
 
         String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getFilename();
         _logger.info("load ARPA language model: " + file);
+        System.out.println("load ARPA language model: " + file);
         //_nGramModel.deallocate();
         /*if (_recognizer.getState() == Recognizer.State.ALLOCATED) {
             _recognizer.deallocate();
