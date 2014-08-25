@@ -30,7 +30,7 @@ public class SphinxRecEngineFactoryArpa extends SphinxRecEngineFactory {
 	    }
 	
 	    PoolableObjectFactory factory = new SphinxRecEngineFactoryArpa(sphinxConfigURL);
-	    GenericObjectPool.Config config = ObjectPoolUtil.getGenericObjectPoolConfig(instances);
+	    GenericObjectPool.Config config = ObjectPoolUtil.getGenericObjectPoolConfig(1);
 	
 	    ObjectPool objectPool = new GenericObjectPool(factory, config);
 	    initPool(objectPool);
