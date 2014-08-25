@@ -68,6 +68,7 @@ public abstract class SphinxRecEngineFactory extends AbstractPoolableObjectFacto
      * @return
      * @throws InstantiationException if initializing the object pool triggers an exception.
      */
+    /*
     public static ObjectPool createObjectPool(URL sphinxConfigURL, int instances)
       throws InstantiationException {
         
@@ -82,5 +83,6 @@ public abstract class SphinxRecEngineFactory extends AbstractPoolableObjectFacto
         initPool(objectPool);
         return objectPool;
     }
+    */
 
 }
