@@ -8,7 +8,7 @@ import javax.speech.recognition.GrammarException;
 
 import org.apache.commons.pool.ObjectPool;
 import org.apache.log4j.Logger;
-import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngine;
+import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineARPA;
 import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineJSGF;
 
 public class ActiveRecognizer {
@@ -31,6 +31,10 @@ public class ActiveRecognizer {
 			((SphinxRecEngineJSGF) _recEngine).startRecognition(dataSource,
 					recogListener);
 			((SphinxRecEngineJSGF) _recEngine).startRecogThread();
+		} else if (_appType.equals("application/arpa")) {
+			((SphinxRecEngineARPA) _recEngine).startRecognition(dataSource,
+					recogListener);
+			((SphinxRecEngineARPA) _recEngine).startRecogThread();
 		}
 	}
 
@@ -38,6 +42,8 @@ public class ActiveRecognizer {
 			throws GrammarException, IOException {
 		if (_appType.equals("application/jsgf")) {
 			((SphinxRecEngineJSGF) _recEngine).load(grammarLocation);
+		} else if (_appType.equals("application/arpa")) {
+			((SphinxRecEngineARPA) _recEngine).load(grammarLocation);
 		}
 	}
 	
