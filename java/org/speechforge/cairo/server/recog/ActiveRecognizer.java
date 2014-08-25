@@ -37,19 +37,19 @@ public class ActiveRecognizer {
 	public void loadLM(GrammarLocation grammarLocation)
 			throws GrammarException, IOException {
 		if (_appType.equals("application/jsgf")) {
-			((SphinxRecEngineJSGF) _recEngine).loadJSGF(grammarLocation);
+			((SphinxRecEngineJSGF) _recEngine).load(grammarLocation);
 		}
 	}
 	
 	public void deallocateLM(){
 		if (_appType.equals("application/jsgf")) {
-			((SphinxRecEngineJSGF) _recEngine).deallocateJSGF();
+			//((SphinxRecEngineJSGF) _recEngine).deallocateJSGF();
 		}
 	}
 
 	public void setHotword(boolean hotword) {
 		if (_appType.equals("application/jsgf")) {
-			((SphinxRecEngineJSGF) _recEngine).deallocateJSGF();
+			((SphinxRecEngineJSGF) _recEngine).setHotword(hotword);
 		}
 	}
 
