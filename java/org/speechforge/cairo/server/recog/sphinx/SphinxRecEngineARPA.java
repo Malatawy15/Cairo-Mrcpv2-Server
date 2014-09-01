@@ -93,8 +93,11 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
     @Override
     public void load(GrammarLocation grammarLocation) throws IOException, GrammarException {
 
-        String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getFilename();
+        String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getGrammarName();
     	//String file = grammarLocation.getFilename();
+        _logger.debug("Base url: " + grammarLocation.getBaseURL().toString());
+        _logger.debug("File name: " + grammarLocation.getFilename());
+        _logger.debug("Grammar name: " + grammarLocation.getGrammarName());
         _logger.debug("load ARPA language model: " + file);
         System.out.println("load ARPA language model: " + file);
         //_nGramModel.deallocate();
