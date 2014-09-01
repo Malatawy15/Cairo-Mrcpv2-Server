@@ -105,7 +105,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
             _recognizer.deallocate();
         }*/
         
-        _linguist.deallocate();
+        //_linguist.deallocate();
         _nGramModel.deallocate();
         _ps.setString(LanguageModel.PROP_LOCATION, file);
         _nGramModel.newProperties(_ps);
