@@ -93,7 +93,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
     @Override
     public void load(GrammarLocation grammarLocation) throws IOException, GrammarException {
 
-        String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getGrammarName() + grammarLocation.getExtension();
+        String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getGrammarName() + ".lm";
     	//String file = grammarLocation.getFilename();
         _logger.debug("Base url: " + grammarLocation.getBaseURL().toString());
         _logger.debug("File name: " + grammarLocation.getFilename());
