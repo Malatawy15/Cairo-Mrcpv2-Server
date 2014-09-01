@@ -139,7 +139,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
              _logger.debug("waitForResult(): result2clear not null!");
              }*/
         } else {
-            _logger.info("waitForResult(): got null result from recognizer!");
+            _logger.debug("waitForResult(): got null result from recognizer!");
             return null;
         }
         RecognitionResult recognitionResult = null;
@@ -148,7 +148,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
             //return new RecognitionResult(result, _jsgfGrammar.getRuleGrammar());
             //return null;
         } catch (InvalidRecognitionResultException ex) {
-            Logger.getLogger(SphinxRecEngineARPA.class.getName()).log(Level.SEVERE, null, ex);
+        	_logger.debug("InvalidRecognitionResultException: ", ex);
         }
         return recognitionResult;
     }
