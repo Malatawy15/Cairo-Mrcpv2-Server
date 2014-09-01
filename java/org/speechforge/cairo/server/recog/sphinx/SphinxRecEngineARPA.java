@@ -140,7 +140,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
              }*/
         } else {
             _logger.debug("waitForResult(): got null result from recognizer!");
-            return null;
+            return waitForResult();
         }
         RecognitionResult recognitionResult = null;
         try {
