@@ -29,7 +29,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
     protected final SimpleNGramModel _nGramModel;
     protected final LexTreeLinguist _linguist;
     private PropertySheet _ps;
-
+/*
     public SphinxRecEngineARPA(ConfigurationManager cm, int id, int origin) throws InstantiationException {
         super(cm, id, origin);
         _logger.info("Creating ARPA Engine # " + id + " . Clone of # " + origin);
@@ -59,7 +59,7 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
             throw new InstantiationException("Unsupported primary input type: " + className);
         }
     }
-    
+    */
     public SphinxRecEngineARPA(ConfigurationManager cm, int id) throws InstantiationException {
         super(cm, id);
         _logger.info("Creating ARPA Engine # " + id);
@@ -93,8 +93,9 @@ public class SphinxRecEngineARPA extends SphinxRecEngine {
     @Override
     public void load(GrammarLocation grammarLocation) throws IOException, GrammarException {
 
-        String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getFilename();
-        _logger.info("load ARPA language model: " + file);
+        //String file = grammarLocation.getBaseURL().toString() + "/" + grammarLocation.getFilename();
+    	String file = grammarLocation.getFilename();
+        _logger.debug("load ARPA language model: " + file);
         System.out.println("load ARPA language model: " + file);
         //_nGramModel.deallocate();
         /*if (_recognizer.getState() == Recognizer.State.ALLOCATED) {
