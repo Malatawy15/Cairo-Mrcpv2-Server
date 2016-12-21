@@ -40,13 +40,13 @@ import org.apache.log4j.Logger;
  *
  * @author Niels Godfredsen {@literal <}<a href="mailto:ngodfredsen@users.sourceforge.net">ngodfredsen@users.sourceforge.net</a>{@literal >}
  */
-public class SphinxRecEngineFactory extends AbstractPoolableObjectFactory {
+public abstract class SphinxRecEngineFactory extends AbstractPoolableObjectFactory {
 
     private static Logger _logger = Logger.getLogger(SphinxRecEngineFactory.class);
 
     URL _sphinxConfigURL = null;
     ConfigurationManager _cm;
-    private int id = 1;
+    protected int id = 1;
 
     public SphinxRecEngineFactory(URL sphinxConfigURL) {
         _sphinxConfigURL = sphinxConfigURL;
@@ -58,10 +58,8 @@ public class SphinxRecEngineFactory extends AbstractPoolableObjectFactory {
      * @see org.apache.commons.pool.PoolableObjectFactory#makeObject()
      */
     @Override
-    public PoolableObject makeObject() throws Exception {
+    public abstract PoolableObject makeObject() throws Exception; 
 
-        return new SphinxRecEngine(_cm, id++);
-    }
 
     /**
      * TODOC
@@ -70,6 +68,7 @@ public class SphinxRecEngineFactory extends AbstractPoolableObjectFactory {
      * @return
      * @throws InstantiationException if initializing the object pool triggers an exception.
      */
+    /*
     public static ObjectPool createObjectPool(URL sphinxConfigURL, int instances)
       throws InstantiationException {
         
@@ -84,5 +83,6 @@ public class SphinxRecEngineFactory extends AbstractPoolableObjectFactory {
         initPool(objectPool);
         return objectPool;
     }
+    */
 
 }

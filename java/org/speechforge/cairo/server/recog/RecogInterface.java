@@ -9,6 +9,8 @@ import org.apache.commons.pool.ObjectPool;
 import org.apache.log4j.Logger;
 import org.speechforge.cairo.server.config.ReceiverConfig;
 import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineFactory;
+import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineFactoryArpa;
+import org.speechforge.cairo.server.recog.sphinx.SphinxRecEngineFactoryJsgf;
 
 public class RecogInterface {
 
@@ -28,8 +30,13 @@ public class RecogInterface {
 		try {
 			_recPools.put(
 					"application/jsgf",
-					SphinxRecEngineFactory.createObjectPool(
+					SphinxRecEngineFactoryJsgf.createObjectPool(
 							_config.getSphinxConfigURL(),
+							_config.getEngines()));
+			_recPools.put(
+					"application/arpa",
+					SphinxRecEngineFactoryArpa.createObjectPool(
+							_config.getSphinxArpaConfigURL(),
 							_config.getEngines()));
 		} catch (InstantiationException e) {
 			e.printStackTrace();
@@ -48,15 +55,8 @@ public class RecogInterface {
 	public void activateRecEngine(String appType,
 			GrammarLocation grammarLocation, boolean hotword) throws Exception {
 		if (_recPools.containsKey(appType) == false) {
-			try {
-				_recPools.put(
-						appType,
-						SphinxRecEngineFactory.createObjectPool(
-								_config.getSphinxConfigURL(),
-								_config.getEngines()));
-			} catch (InstantiationException e) {
-				e.printStackTrace();
-			}
+			_logger.error("App type unsupported!");
+			return;
 		}
 		ObjectPool recPool = _recPools.get(appType);
 		_activeRecog = new ActiveRecognizer(recPool, recPool.borrowObject(),
